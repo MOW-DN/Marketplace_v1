@@ -1,0 +1,23 @@
+<%= content_for :content do %>
+  <section class="settings">
+    <nav>
+      <h4>Account Settings</h4>
+      <%= link_to "Profile", settings_profile_path %>
+      <%= link_to "Email", settings_email_path %>
+      <%= link_to "Password", settings_password_path %>
+      <%= link_to "Account", settings_user_path %>
+
+      <% if Current.user.admin? %>
+        <h4>Store Settings</h4>
+        <%= link_to "Products", store_products_path %>
+        <%= link_to "Users", store_users_path %>
+      <% end %>
+    </nav>
+
+    <div>
+      <%= yield %>
+    </div>
+  </section>
+<% end %>
+
+<%= render template: "layouts/application" %>

@@ -1,0 +1,11 @@
+<h1><%= t ".title" %></h1>
+
+<%= link_to "New product", new_store_product_path %>
+
+<div id="products">
+  <% @products.each do |product| %>
+    <div>
+      <%= link_to product.name, store_product_path(product) %>
+    </div>
+  <% end %>
+</div>

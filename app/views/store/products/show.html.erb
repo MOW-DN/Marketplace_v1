@@ -1,0 +1,16 @@
+<p><%= link_to "Back", store_products_path %></p>
+
+<section class="product">
+  <%= image_tag @product.featured_image if @product.featured_image.attached? %>
+
+  <section class="product-info">
+    <% cache @product do %>
+      <h1><%= @product.name %></h1>
+      <%= @product.description %>
+    <% end %>
+
+    <%= link_to "View in Storefront", @product %>
+    <%= link_to "Edit", edit_store_product_path(@product) %>
+    <%= button_to "Delete", [ :store, @product ], method: :delete, data: { turbo_confirm: "Are you sure?" } %>
+  </section>
+</section>
