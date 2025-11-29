@@ -1,0 +1,10 @@
+<h1><%= @wishlist.name %></h1>
+<p>By <%= link_to @wishlist.user.full_name, store_user_path(@wishlist.user) %></p>
+
+<h3><%= pluralize @wishlist.products_count, "Product" %></h3>
+<% @wishlist.wishlist_products.includes(:product).each do %>
+  <div>
+    <%= link_to it.product.name, store_product_path(it.product) %>
+    <small>Added <%= l it.created_at, format: :long %></small>
+  </div>
+<% end %>

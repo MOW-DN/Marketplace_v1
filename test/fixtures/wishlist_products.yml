@@ -1,0 +1,11 @@
+one:
+  product: tshirt
+  wishlist: one
+
+two:
+  product: tshirt
+  wishlist: two
+  
+three:
+  product: shoes
+  wishlist: two

@@ -28,9 +28,10 @@
     <div class="notice"><%= flash[:notice] %></div>
     <div class="alert"><%= flash[:alert] %></div>
 
-    <nav class="navbar">
+     <nav class="navbar">
       <%= link_to "Home", root_path %>
       <% if authenticated? %>
+        <%= link_to "Wishlists", wishlists_path %>
         <%= link_to "Settings", settings_root_path %>
         <%= button_to "Log out", session_path, method: :delete %>
       <% else %>

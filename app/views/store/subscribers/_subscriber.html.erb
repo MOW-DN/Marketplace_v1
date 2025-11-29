@@ -1,0 +1,3 @@
+<div>
+  <%= link_to subscriber.email, store_subscriber_path(subscriber) %> subscribed to <%= link_to subscriber.product.name, store_product_path(subscriber.product) %> on <%= l subscriber.created_at, format: :long %>
+</div>

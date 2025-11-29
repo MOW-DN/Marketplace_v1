@@ -1,0 +1,24 @@
+<h1><%= @wishlist.name %></h1>
+<% if authenticated? && @wishlist.user == Current.user %>
+  <%= link_to "Edit", edit_wishlist_path(@wishlist) %>
+  <%= button_to "Delete", @wishlist, method: :delete, data: { turbo_confirm: "Are you sure?" } %>
+<% end %>
+
+<h3><%= pluralize @wishlist.products_count, "Product" %></h3>
+<% @wishlist.wishlist_products.includes(:product).each do %>
+  <div>
+    <%= link_to it.product.name, it.product %>
+    <small>Added <%= l it.created_at, format: :long %></small>
+
+    <% if authenticated? && @wishlist.user == Current.user %>
+      <% if (other_wishlists = Current.user.wishlists.excluding(@wishlist)) && other_wishlists.any? %>
+        <%= form_with url: [ @wishlist, it ], method: :patch do |form| %>
+          <%= form.collection_select :new_wishlist_id, other_wishlists, :id, :name %>
+          <%= form.submit "Move" %>
+        <% end %>
+      <% end %>
+
+      <%= button_to "Remove", [ @wishlist, it ], method: :delete, data: { turbo_confirm: "Are you sure?" } %>
+    <% end %>
+  </div>
+<% end %>

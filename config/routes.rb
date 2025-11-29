@@ -10,18 +10,25 @@ end
 namespace :email do
   resources :confirmations, param: :token, only: [ :show ]
 end
-namespace :store do
-  resources :products
-  resources :users
-  root to: redirect("/store/products")
-end
+    # Admins Only
+  namespace :store do
+    resources :products
+    resources :users
+    resources :wishlists
+    resources :subscribers
+
+    root to: redirect("/store/products")
+  end
   resources :passwords, param: :token
   resource :sign_up
   resources :products do
+    resource :wishlist, only: [ :create ], module: :products
     resources :subscribers, only: [ :create ]
   end
   resource :unsubscribe, only: [ :show ]
-
+  resources :wishlists do
+    resources :wishlist_products, only: [ :update, :destroy ], module: :wishlists
+  end
   root "products#index"
 
 

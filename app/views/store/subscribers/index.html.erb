@@ -1,0 +1,8 @@
+<h1><%= pluralize @subscribers.count, "Subscriber" %></h1>
+
+<%= form_with url: store_subscribers_path, method: :get do |form| %>
+  <%= form.collection_select :product_id, Product.all, :id, :name, selected: params[:product_id], include_blank: "All Products" %>
+  <%= form.submit "Filter" %>
+<% end %>
+
+<%= render @subscribers %>

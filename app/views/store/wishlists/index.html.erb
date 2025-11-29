@@ -1,0 +1,9 @@
+<h1><%= pluralize @wishlists.count, "Wishlist" %></h1>
+
+<%= form_with url: store_wishlists_path, method: :get do |form| %>
+  <%= form.collection_select :user_id, User.all, :id, :full_name, selected: params[:user_id], include_blank: "All Users" %>
+  <%= form.collection_select :product_id, Product.all, :id, :name, selected: params[:product_id], include_blank: "All Products" %>
+  <%= form.submit "Filter" %>
+<% end %>
+
+<%= render @wishlists %>

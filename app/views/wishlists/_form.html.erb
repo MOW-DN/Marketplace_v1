@@ -1,0 +1,15 @@
+<%= form_with model: @wishlist do |form| %>
+  <% if form.object.errors.any? %>
+    <div><%= form.object.errors.full_messages.to_sentence %></div>
+  <% end %>
+
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+    <%= link_to "Cancel", form.object.persisted? ? form.object : wishlists_path %>
+  </div>
+<% end %>
