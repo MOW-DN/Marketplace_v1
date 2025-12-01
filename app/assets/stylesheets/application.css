@@ -11,6 +11,7 @@
 
 
  /* app/assets/stylesheets/application.css */
+@import "tailwindcss";
 body {
   font-family: Arial, Helvetica, sans-serif;
   padding: 1rem;
@@ -84,3 +85,4 @@ section.settings nav {
 section.settings nav a {
   display: block;
 }
+

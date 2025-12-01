@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+vendor/
+
+# Production
+public/
+
+# Misc
+.git
+.gitignore
+.env
+.env.local
+
+# Logs
+log/
+tmp/
+
+# Rails
+config/
+db/
+storage/

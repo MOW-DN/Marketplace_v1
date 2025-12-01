@@ -1,3 +1,11 @@
-<div>
-  <%= link_to wishlist.name, store_wishlist_path(wishlist) %> by <%= link_to wishlist.user.full_name, store_user_path(wishlist.user) %>
+<div class="bg-white shadow rounded-lg p-4 mb-4 flex flex-col md:flex-row md:justify-between md:items-center">
+
+  <div class="text-gray-800">
+    <%= link_to wishlist.name, store_wishlist_path(wishlist),
+        class: "font-medium text-blue-600 hover:underline" %>
+    by
+    <%= link_to wishlist.user.full_name, store_user_path(wishlist.user),
+        class: "font-medium text-blue-600 hover:underline" %>
+  </div>
+
 </div>

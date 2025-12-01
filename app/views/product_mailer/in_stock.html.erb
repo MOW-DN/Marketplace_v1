@@ -1,6 +1,18 @@
-<h1>Good news!</h1>
+<div class="font-sans bg-gray-50 p-6">
+  <h1 class="text-2xl font-bold text-gray-900 mb-4">
+    Good news!
+  </h1>
 
-<p>
-<%= link_to @product.name, product_url(@product) %> is back in stock!</p>
+  <p class="text-gray-700 text-lg mb-4">
+    <%= link_to @product.name,
+                product_url(@product),
+                class: "text-blue-600 underline font-medium" %>
+    is back in stock!
+  </p>
 
-<%= link_to "Unsubscribe", unsubscribe_url(token: params[:subscriber].generate_token_for(:unsubscribe)) %>
+  <p class="text-sm text-gray-500 mt-6">
+    <%= link_to "Unsubscribe",
+                unsubscribe_url(token: params[:subscriber].generate_token_for(:unsubscribe)),
+                class: "text-red-600 underline" %>
+  </p>
+</div>

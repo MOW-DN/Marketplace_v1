@@ -1,9 +1,29 @@
-<%= link_to "Back to all users", store_users_path %>
+<div class="max-w-md mx-auto space-y-6">
 
-<h1><%= @user.full_name %></h1>
-<p><%= @user.email_address %></p>
+  <!-- Back Link -->
+  <div>
+    <%= link_to "Back to all users",
+        store_users_path,
+        class: "text-gray-600 hover:text-gray-800 underline" %>
+  </div>
 
-<div>
-  <%= link_to "Edit user", edit_store_user_path(@user)  %>
-  <%= button_to "Delete user", store_user_path(@user), method: :delete, data: { turbo_confirm: "Are you sure?" } %>
+  <!-- User Info -->
+  <div class="bg-white shadow-md rounded-lg p-6 space-y-2">
+    <h1 class="text-2xl font-bold text-gray-900"><%= @user.full_name %></h1>
+    <p class="text-gray-700"><%= @user.email_address %></p>
+
+    <!-- Actions -->
+    <div class="flex gap-2 mt-4">
+      <%= link_to "Edit user",
+          edit_store_user_path(@user),
+          class: "bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition" %>
+
+      <%= button_to "Delete user",
+          store_user_path(@user),
+          method: :delete,
+          data: { turbo_confirm: "Are you sure?" },
+          class: "bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition" %>
+    </div>
+  </div>
+
 </div>

@@ -1,4 +1,15 @@
-<h1>New product</h1>
+<h1 class="text-3xl font-bold text-gray-900 mb-6">New Product</h1>
 
-<%= render "form", product: @product %>
-<%= link_to "Cancel", store_products_path %>
+<div class="bg-white shadow-md rounded-lg p-6 max-w-2xl space-y-4">
+
+  <!-- Product Form -->
+  <%= render "form", product: @product %>
+
+  <!-- Cancel Link -->
+  <div class="mt-4">
+    <%= link_to "Cancel",
+        store_products_path,
+        class: "text-gray-600 hover:text-gray-800 underline" %>
+  </div>
+
+</div>

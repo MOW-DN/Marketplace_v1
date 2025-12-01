@@ -1,12 +1,30 @@
-<h1><%= t ".title" %></h1>
+<h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8"><%= t ".title" %></h1>
 
-
-
-
-<div id="products">
+<div id="products" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
   <% @products.each do |product| %>
-    <div>
-      <%= link_to product.name, product_path(product.id) %>
+    <div class="bg-white shadow-lg rounded-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300 group">
+      
+      <%= link_to product_path(product), class: "block" do %>
+        <!-- Optional Product Image -->
+        <% if product.featured_image.attached? %>
+          <%= image_tag product.featured_image,
+                class: "w-full h-48 object-cover rounded-t-xl group-hover:scale-105 transition-transform duration-300" %>
+        <% else %>
+          <div class="w-full h-48 bg-gray-200 flex items-center justify-center text-gray-500 rounded-t-xl">
+            No image
+          </div>
+        <% end %>
+
+        <!-- Product Info -->
+        <div class="p-4">
+          <h2 class="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
+            <%= product.name %>
+          </h2>
+
+      
+        </div>
+      <% end %>
+
     </div>
   <% end %>
 </div>

@@ -1,9 +1,39 @@
-<h1>Update your password</h1>
+<h1 class="text-3xl font-bold text-gray-900 mb-6">Update your password</h1>
 
-<%= tag.div(flash[:alert], style: "color:red") if flash[:alert] %>
-
-<%= form_with url: password_path(params[:token]), method: :put do |form| %>
-  <%= form.password_field :password, required: true, autocomplete: "new-password", placeholder: "Enter new password", maxlength: 72 %><br>
-  <%= form.password_field :password_confirmation, required: true, autocomplete: "new-password", placeholder: "Repeat new password", maxlength: 72 %><br>
-  <%= form.submit "Save" %>
+<% if flash[:alert] %>
+  <div class="mb-4 text-red-600 font-medium">
+    <%= flash[:alert] %>
+  </div>
 <% end %>
+
+<div class="bg-white shadow-md rounded-lg p-6 max-w-md mx-auto">
+  <%= form_with url: password_path(params[:token]), method: :put, class: "space-y-4" do |form| %>
+
+    <div>
+      <%= form.password_field :password,
+          required: true,
+          autocomplete: "new-password",
+          placeholder: "Enter new password",
+          maxlength: 72,
+          class: "w-full border border-gray-300 rounded-lg p-2
+                 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
+    </div>
+
+    <div>
+      <%= form.password_field :password_confirmation,
+          required: true,
+          autocomplete: "new-password",
+          placeholder: "Repeat new password",
+          maxlength: 72,
+          class: "w-full border border-gray-300 rounded-lg p-2
+                 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
+    </div>
+
+    <div>
+      <%= form.submit "Save",
+          class: "w-full bg-blue-600 text-white py-2 rounded-lg 
+                 font-medium hover:bg-blue-700 transition-colors cursor-pointer" %>
+    </div>
+
+  <% end %>
+</div>

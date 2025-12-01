@@ -1,12 +1,28 @@
-<%# app/views/products/_inventory.html.erb %>
-<% if product.inventory_count.positive? %>
-  <p><%= product.inventory_count %> in stock</p>
-<% else %>
-  <p>Out of stock</p>
-  <p>Email me when available.</p>
+<div class="inventory space-y-3">
 
-  <%= form_with model: [product, Subscriber.new] do |form| %>
-    <%= form.email_field :email, placeholder: "you@example.com", required: true %>
-    <%= form.submit "Submit" %>
+  <% if product.inventory_count.positive? %>
+    <p class="text-green-500 font-semibold text-lg">
+      <%= product.inventory_count %> in stock
+    </p>
+  <% else %>
+    <p class="text-red-500 font-bold text-lg">Out of stock</p>
+    <p class="text-black-100 text-sm mb-2">Enter your email to be notified when available:</p>
+
+    <%= form_with model: [product, Subscriber.new], class: "space-y-3 w-full max-w-sm" do |form| %>
+      <div>
+        <%= form.email_field :email,
+          placeholder: "you@example.com",
+          required: true,
+          class: "w-full bg-gray-800 text-white border border-gray-700 rounded-lg p-2
+                 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" %>
+      </div>
+
+      <div>
+        <%= form.submit "Notify Me",
+          class: "w-full bg-blue-500 text-white font-medium px-4 py-2 rounded-lg
+                  hover:bg-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" %>
+      </div>
+    <% end %>
   <% end %>
-<% end %>
+
+</div>

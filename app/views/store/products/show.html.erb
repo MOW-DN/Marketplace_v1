@@ -1,21 +1,57 @@
-<p><%= link_to "Back", store_products_path %></p>
+<div class="max-w-3xl mx-auto space-y-6">
 
-<section class="product">
-  <%= image_tag @product.featured_image if @product.featured_image.attached? %>
+  <!-- Back Link -->
+  <div>
+    <%= link_to "Back",
+        store_products_path,
+        class: "text-gray-600 hover:text-gray-800 underline" %>
+  </div>
 
-  <section class="product-info">
-    <% cache @product do %>
-      <h1><%= @product.name %></h1>
-      <%= @product.description %>
+  <!-- Product Section -->
+  <section class="bg-white shadow-md rounded-lg p-6 flex flex-col md:flex-row gap-6">
+
+    <!-- Product Image -->
+    <% if @product.featured_image.attached? %>
+      <div class="md:w-1/3">
+        <%= image_tag @product.featured_image,
+            class: "rounded-lg object-cover w-full h-full" %>
+      </div>
     <% end %>
 
-    <%= link_to "View in Storefront", @product %>
-    <%= link_to "Edit", edit_store_product_path(@product) %>
-    <%= button_to "Delete", [ :store, @product ], method: :delete, data: { turbo_confirm: "Are you sure?" } %>
-  </section>
-</section>
+    <!-- Product Info -->
+    <section class="md:w-2/3 space-y-4">
+      <% cache @product do %>
+        <h1 class="text-2xl font-bold text-gray-900"><%= @product.name %></h1>
+        <div class="prose"><%= @product.description %></div>
+      <% end %>
 
-<section>
-  <%= link_to pluralize(@product.wishlists_count, "wishlist"), store_wishlists_path(product_id: @product) %>
-  <%= link_to pluralize(@product.subscribers.count, "subscriber"), store_subscribers_path(product_id: @product) %>
-</section>
+      <div class="flex flex-wrap gap-2 mt-2">
+        <%= link_to "View in Storefront",
+            @product,
+            class: "bg-gray-100 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-200 transition" %>
+
+        <%= link_to "Edit",
+            edit_store_product_path(@product),
+            class: "bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition" %>
+
+        <%= button_to "Delete",
+            [:store, @product],
+            method: :delete,
+            data: { turbo_confirm: "Are you sure?" },
+            class: "bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition" %>
+      </div>
+    </section>
+  </section>
+
+  <!-- Wishlists & Subscribers -->
+  <section class="flex gap-4 text-gray-700">
+    <%= link_to pluralize(@product.wishlists_count, "wishlist"),
+        store_wishlists_path(product_id: @product),
+        class: "underline hover:text-gray-900" %>
+
+    <%= link_to pluralize(@product.subscribers.count, "subscriber"),
+        store_subscribers_path(product_id: @product),
+        class: "underline hover:text-gray-900" %>
+  </section>
+
+</div>

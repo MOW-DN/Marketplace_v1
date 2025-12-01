@@ -1,26 +1,52 @@
+<%= form_with model: [:store, product], class: "space-y-6" do |form| %>
 
-<%= form_with model: [ :store, product ] do |form| %>
   <% if form.object.errors.any? %>
-    <p class="error"><%= form.object.errors.full_messages.first %></p>
+    <p class="bg-red-100 text-red-700 px-4 py-2 rounded">
+      <%= form.object.errors.full_messages.first %>
+    </p>
   <% end %>
 
+  <!-- Name -->
   <div>
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.label :name, "Product Name",
+          class: "block text-sm font-medium text-gray-700 mb-1" %>
+    <%= form.text_field :name,
+          class: "w-full border border-gray-300 rounded-lg p-2
+                 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
   </div>
+
+  <!-- Description -->
   <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.rich_textarea :description %>
+    <%= form.label :description, "Description",
+          class: "block text-sm font-medium text-gray-700 mb-1" %>
+    <%= form.rich_text_area :description,
+          class: "border border-gray-300 rounded-lg p-2 focus:ring-2
+                 focus:ring-blue-500 focus:border-blue-500 w-full" %>
   </div>
+
+  <!-- Featured Image -->
   <div>
-    <%= form.label :featured_image, style: "display: block" %>
-    <%= form.file_field :featured_image, accept: "image/*" %>
+    <%= form.label :featured_image, "Featured Image",
+          class: "block text-sm font-medium text-gray-700 mb-1" %>
+    <%= form.file_field :featured_image,
+          accept: "image/*",
+          class: "w-full text-gray-700" %>
   </div>
+
+  <!-- Inventory Count -->
   <div>
-  <%= form.label :inventory_count, style:"display: block" %>
-  <%= form.number_field :inventory_count %>
+    <%= form.label :inventory_count, "Inventory Count",
+          class: "block text-sm font-medium text-gray-700 mb-1" %>
+    <%= form.number_field :inventory_count,
+          class: "w-full border border-gray-300 rounded-lg p-2
+                 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
   </div>
+
+  <!-- Submit Button -->
   <div>
-    <%= form.submit %>
+    <%= form.submit "Save Product",
+          class: "w-full bg-blue-600 text-white py-2 rounded-lg font-medium
+                 hover:bg-blue-700 transition-colors cursor-pointer" %>
   </div>
+
 <% end %>

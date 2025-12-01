@@ -1,21 +1,46 @@
-<h1>Profile</h1>
+<h1 class="text-3xl font-bold text-gray-900 mb-6">Profile</h1>
 
-<%= form_with model: Current.user, url: settings_profile_path do |form| %>
-  <% if form.object.errors.any? %>
-    <div>Error: <%= form.object.errors.full_messages.first %></div>
+<div class="bg-white shadow-md rounded-lg p-6 max-w-md space-y-6">
+
+  <%= form_with model: Current.user, url: settings_profile_path, class: "space-y-4" do |form| %>
+
+    <% if form.object.errors.any? %>
+      <div class="bg-red-100 text-red-700 px-4 py-2 rounded">
+        <%= form.object.errors.full_messages.first %>
+      </div>
+    <% end %>
+
+    <!-- First Name -->
+    <div>
+      <%= form.label :first_name, "First name",
+            class: "block text-sm font-medium text-gray-700 mb-1" %>
+
+      <%= form.text_field :first_name,
+            required: true,
+            autocomplete: "given-name",
+            class: "w-full border border-gray-300 rounded-lg p-2
+                   focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
+    </div>
+
+    <!-- Last Name -->
+    <div>
+      <%= form.label :last_name, "Last name",
+            class: "block text-sm font-medium text-gray-700 mb-1" %>
+
+      <%= form.text_field :last_name,
+            required: true,
+            autocomplete: "family-name",
+            class: "w-full border border-gray-300 rounded-lg p-2
+                   focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
+    </div>
+
+    <!-- Submit Button -->
+    <div>
+      <%= form.submit "Update profile",
+            class: "w-full bg-blue-600 text-white py-2 rounded-lg font-medium
+                   hover:bg-blue-700 transition-colors cursor-pointer" %>
+    </div>
+
   <% end %>
 
-  <div>
-    <%= form.label :first_name %>
-    <%= form.text_field :first_name, required: true, autocomplete: "given-name" %>
-  </div>
-
-  <div>
-    <%= form.label :last_name %>
-    <%= form.text_field :last_name, required: true, autocomplete: "family-name" %>
-  </div>
-
-  <div>
-    <%= form.submit "Update profile" %>
-  </div>
-<% end %>
+</div>

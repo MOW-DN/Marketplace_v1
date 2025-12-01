@@ -1,21 +1,45 @@
-<h1>Change Email</h1>
+<h1 class="text-3xl font-bold text-gray-900 mb-6">Change Email</h1>
 
-<%= form_with model: Current.user, url: settings_email_path do |form| %>
-  <% if form.object.errors.any? %>
-    <div>Error: <%= form.object.errors.full_messages.first %></div>
+<div class="bg-white shadow-md rounded-lg p-6 max-w-md space-y-6">
+
+  <%= form_with model: Current.user, url: settings_email_path, class: "space-y-4" do |form| %>
+
+    <% if form.object.errors.any? %>
+      <div class="bg-red-100 text-red-700 px-4 py-2 rounded">
+        <%= form.object.errors.full_messages.first %>
+      </div>
+    <% end %>
+
+    <!-- New Email -->
+    <div>
+      <%= form.label :unconfirmed_email, "New email address",
+            class: "block text-sm font-medium text-gray-700 mb-1" %>
+
+      <%= form.email_field :unconfirmed_email,
+            required: true,
+            class: "w-full border border-gray-300 rounded-lg p-2
+                   focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
+    </div>
+
+    <!-- Password Confirmation -->
+    <div>
+      <%= form.label :password_challenge, "Current password",
+            class: "block text-sm font-medium text-gray-700 mb-1" %>
+
+      <%= form.password_field :password_challenge,
+            required: true,
+            autocomplete: "current-password",
+            class: "w-full border border-gray-300 rounded-lg p-2
+                   focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
+    </div>
+
+    <!-- Submit Button -->
+    <div>
+      <%= form.submit "Update email address",
+            class: "w-full bg-blue-600 text-white py-2 rounded-lg font-medium
+                   hover:bg-blue-700 transition-colors cursor-pointer" %>
+    </div>
+
   <% end %>
 
-  <div>
-    <%= form.label :unconfirmed_email, "New email address" %>
-    <%= form.email_field :unconfirmed_email, required: true %>
-  </div>
-
-  <div>
-    <%= form.label :password_challenge %>
-    <%= form.password_field :password_challenge, required: true, autocomplete: "current-password" %>
-  </div>
-
-  <div>
-    <%= form.submit "Update email address" %>
-  </div>
-<% end %>
+</div>

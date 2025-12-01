@@ -1,4 +1,24 @@
-<h1><%= @subscriber.email %></h1>
-<p>Subscribed to <%= link_to @subscriber.product.name, store_product_path(@subscriber.product) %> on <%= l @subscriber.created_at, format: :long %></p>
+<div class="max-w-xl mx-auto space-y-6">
 
-<%= button_to "Remove", store_subscriber_path(@subscriber), method: :delete, data: { turbo_confirm: "Are you sure?" } %>
+  <!-- Subscriber Email -->
+  <h1 class="text-3xl font-bold text-gray-900"><%= @subscriber.email %></h1>
+
+  <!-- Subscription Info -->
+  <p class="text-gray-700">
+    Subscribed to
+    <%= link_to @subscriber.product.name, store_product_path(@subscriber.product),
+        class: "text-blue-600 hover:underline font-medium" %>
+    on <%= l @subscriber.created_at, format: :long %>
+  </p>
+
+  <!-- Remove Button -->
+  <div>
+    <%= button_to "Remove",
+        store_subscriber_path(@subscriber),
+        method: :delete,
+        data: { turbo_confirm: "Are you sure?" },
+        class: "bg-red-600 text-white px-4 py-2 rounded-lg font-medium
+               hover:bg-red-700 transition-colors cursor-pointer" %>
+  </div>
+
+</div>

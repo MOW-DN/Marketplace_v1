@@ -1,24 +1,38 @@
 <%= content_for :content do %>
-  <section class="settings">
-    <nav>
-      <h4>Account Settings</h4>
-      <%= link_to "Profile", settings_profile_path %>
-      <%= link_to "Email", settings_email_path %>
-      <%= link_to "Password", settings_password_path %>
-      <%= link_to "Account", settings_user_path %>
+  <section class="flex flex-col md:flex-row gap-6">
 
+    <!-- Sidebar -->
+    <aside class="w-full md:w-64 bg-white shadow-md rounded-lg p-6 flex-shrink-0">
+      <!-- Account Settings -->
+      <div class="mb-6">
+        <h4 class="text-lg font-semibold text-gray-800 mb-3">Account Settings</h4>
+        <ul class="space-y-2">
+          <li><%= link_to "Profile", settings_profile_path, class: "block text-gray-700 hover:text-blue-600 px-2 py-1 rounded" %></li>
+          <li><%= link_to "Email", settings_email_path, class: "block text-gray-700 hover:text-blue-600 px-2 py-1 rounded" %></li>
+          <li><%= link_to "Password", settings_password_path, class: "block text-gray-700 hover:text-blue-600 px-2 py-1 rounded" %></li>
+          <li><%= link_to "Account", settings_user_path, class: "block text-gray-700 hover:text-blue-600 px-2 py-1 rounded" %></li>
+        </ul>
+      </div>
+
+      <!-- Store Settings (Admin Only) -->
       <% if Current.user.admin? %>
-        <h4>Store Settings</h4>
-        <%= link_to "Products", store_products_path %>
-        <%= link_to "Users", store_users_path %>
-        <%= link_to "Subscribers", store_subscribers_path %>
-        <%= link_to "Wishlists", store_wishlists_path %>
+        <div>
+          <h4 class="text-lg font-semibold text-gray-800 mb-3">Store Settings</h4>
+          <ul class="space-y-2">
+            <li><%= link_to "Products", store_products_path, class: "block text-gray-700 hover:text-blue-600 px-2 py-1 rounded" %></li>
+            <li><%= link_to "Users", store_users_path, class: "block text-gray-700 hover:text-blue-600 px-2 py-1 rounded" %></li>
+            <li><%= link_to "Subscribers", store_subscribers_path, class: "block text-gray-700 hover:text-blue-600 px-2 py-1 rounded" %></li>
+            <li><%= link_to "Wishlists", store_wishlists_path, class: "block text-gray-700 hover:text-blue-600 px-2 py-1 rounded" %></li>
+          </ul>
+        </div>
       <% end %>
-    </nav>
+    </aside>
 
-    <div>
+    <!-- Main Content -->
+    <div class="flex-1 bg-white shadow-md rounded-lg p-6">
       <%= yield %>
     </div>
+
   </section>
 <% end %>
 

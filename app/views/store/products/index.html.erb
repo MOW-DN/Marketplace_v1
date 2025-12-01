@@ -1,11 +1,24 @@
-<h1><%= t ".title" %></h1>
+<h1 class="text-3xl font-bold text-gray-900 mb-6"><%= t ".title" %></h1>
 
-<%= link_to "New product", new_store_product_path %>
+<div class="mb-6">
+  <%= link_to "New product",
+      new_store_product_path,
+      class: "inline-block bg-blue-600 text-white px-4 py-2 rounded-lg
+             font-medium hover:bg-blue-700 transition-colors" %>
+</div>
 
-<div id="products">
+<div id="products" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
   <% @products.each do |product| %>
-    <div>
-      <%= link_to product.name, store_product_path(product) %>
+    <div class="bg-white shadow rounded-lg p-4 hover:shadow-md transition-shadow">
+      <%= link_to store_product_path(product), class: "block text-lg font-semibold text-gray-900 hover:text-blue-600" do %>
+        <%= product.name %>
+      <% end %>
+
+      <% if product.inventory_count.positive? %>
+        <p class="text-sm text-green-600 mt-2"><%= product.inventory_count %> in stock</p>
+      <% else %>
+        <p class="text-sm text-red-600 mt-2">Out of stock</p>
+      <% end %>
     </div>
   <% end %>
 </div>

@@ -1,0 +1,22 @@
+{
+  "overrides": [
+    {
+      "files": "*.erb",
+      "options": {
+        "parser": "html"
+      }
+    },
+    {
+      "files": "erb",
+      "options": {
+        "parser": "html"
+      }
+    },
+    {
+      "files": "*.html.erb",
+      "options": {
+        "parser": "html"
+      }
+    }
+  ]
+}

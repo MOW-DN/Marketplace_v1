@@ -1,15 +1,45 @@
-<p><%= link_to "Back", products_path %></p>
+<p class="mb-6">
+  <%= link_to "← Back to Products", products_path,
+        class: "text-blue-600 hover:text-blue-800 font-medium" %>
+</p>
 
-<section class="product">
-  <%= image_tag @product.featured_image if @product.featured_image.attached? %>
+<section class="product grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
 
-  <section class="product-info">
+  <!-- Product Image -->
+  <div class="w-full flex justify-center">
+    <% if @product.featured_image.attached? %>
+      <%= image_tag @product.featured_image,
+          class: "w-full max-w-md rounded-xl shadow-lg object-cover hover:scale-105 transition-transform duration-300" %>
+    <% else %>
+      <div class="w-full max-w-md h-64 bg-gray-200 rounded-xl flex items-center justify-center text-gray-500">
+        No image available
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Product Info -->
+  <section class="product-info space-y-6">
+
     <% cache @product do %>
-      <h1><%= @product.name %></h1>
-      <%= @product.description %>
+      <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900"><%= @product.name %></h1>
+
+      <div class="prose max-w-none text-gray-700">
+        <%= @product.description %>
+      </div>
     <% end %>
 
-    <%= render "inventory", product: @product %>
-    <%= render "wishlist", product: @product %>
+    <!-- Inventory -->
+    <div class="pt-4 border-t border-gray-200">
+      <%= render "inventory", product: @product %>
+    </div>
+
+    <!-- Wishlist -->
+    <div class="pt-4 border-t border-gray-200">
+      <%= render "wishlist", product: @product %>
+    </div>
+
+    <!-- Price & CTA (Optional) -->
+  
+
   </section>
 </section>

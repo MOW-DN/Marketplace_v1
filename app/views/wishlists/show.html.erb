@@ -1,24 +1,51 @@
-<h1><%= @wishlist.name %></h1>
-<% if authenticated? && @wishlist.user == Current.user %>
-  <%= link_to "Edit", edit_wishlist_path(@wishlist) %>
-  <%= button_to "Delete", @wishlist, method: :delete, data: { turbo_confirm: "Are you sure?" } %>
-<% end %>
+<div class="max-w-3xl mx-auto space-y-6">
 
-<h3><%= pluralize @wishlist.products_count, "Product" %></h3>
-<% @wishlist.wishlist_products.includes(:product).each do %>
-  <div>
-    <%= link_to it.product.name, it.product %>
-    <small>Added <%= l it.created_at, format: :long %></small>
+  <!-- Wishlist Title -->
+  <h1 class="text-3xl font-bold text-gray-900"><%= @wishlist.name %></h1>
 
-    <% if authenticated? && @wishlist.user == Current.user %>
-      <% if (other_wishlists = Current.user.wishlists.excluding(@wishlist)) && other_wishlists.any? %>
-        <%= form_with url: [ @wishlist, it ], method: :patch do |form| %>
-          <%= form.collection_select :new_wishlist_id, other_wishlists, :id, :name %>
-          <%= form.submit "Move" %>
+  <!-- Edit / Delete Buttons -->
+  <% if authenticated? && @wishlist.user == Current.user %>
+    <div class="flex space-x-2">
+      <%= link_to "Edit", edit_wishlist_path(@wishlist), class: "px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" %>
+      <%= button_to "Delete", @wishlist, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600" %>
+    </div>
+  <% end %>
+
+  <!-- Products Count -->
+  <h3 class="text-xl font-semibold mt-4"><%= pluralize(@wishlist.products_count, "Product") %></h3>
+
+  <!-- Products List -->
+  <div class="space-y-4 mt-2">
+    <% @wishlist.wishlist_products.includes(:product).each do |it| %>
+      <div class="bg-white shadow-sm rounded p-4 flex flex-col md:flex-row md:justify-between md:items-center">
+        <div>
+          <%= link_to it.product.name, it.product, class: "text-blue-500 hover:underline text-lg font-medium" %>
+          <p class="text-gray-500 text-sm">Added <%= l(it.created_at, format: :long) %></p>
+        </div>
+
+        <% if authenticated? && @wishlist.user == Current.user %>
+          <div class="flex flex-col md:flex-row md:items-center md:space-x-2 mt-2 md:mt-0">
+
+            <!-- Move to Another Wishlist -->
+            <% other_wishlists = Current.user.wishlists.excluding(@wishlist) %>
+            <% if other_wishlists.any? %>
+              <%= form_with url: [@wishlist, it], method: :patch, class: "flex space-x-2" do |form| %>
+                <%= form.collection_select :new_wishlist_id, other_wishlists, :id, :name, {}, class: "border rounded px-2 py-1" %>
+                <%= form.submit "Move", class: "px-3 py-1 bg-gray-200 rounded hover:bg-gray-300" %>
+              <% end %>
+            <% end %>
+
+            <!-- Remove Product -->
+            <%= button_to "Remove", [@wishlist, it], method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 mt-2 md:mt-0" %>
+          </div>
         <% end %>
-      <% end %>
-
-      <%= button_to "Remove", [ @wishlist, it ], method: :delete, data: { turbo_confirm: "Are you sure?" } %>
+      </div>
     <% end %>
   </div>
-<% end %>
+
+  <!-- Back Link -->
+  <div class="mt-6">
+    <%= link_to "Back to Wishlists", wishlists_path, class: "text-blue-500 hover:underline" %>
+  </div>
+
+</div>
