@@ -1,9 +1,3 @@
 {
-  "files.associations": {
-    "*.html.erb": "html"
-    
-  },
-  "editor.defaultFormatter": null
-  
-  
+
 }
